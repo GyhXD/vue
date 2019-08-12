@@ -22,13 +22,42 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  const postcssLoader = {
+  const stylusLoader = {
     loader: 'postcss-loader',
     options: {
       sourceMap: options.sourceMap
     }
   }
 
+  const postcssLoader = {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: options.sourceMap
+    }
+  }
+  // 实现stylus-resources-loader 全局注入的方法
+  function generateSassResourceLoader () {
+    var loaders = [
+          cssLoader,
+          'stylus-loader',
+          {
+              loader: 'stylus-resources-loader',
+              options: {
+                  resources: [
+                      path.resolve(__dirname, '../src/common/css/common.styl'),
+                  ]
+              }
+          }
+    ]
+    if (options.extract) {
+        return ExtractTextPlugin.extract({
+            use: loaders,
+            fallback: 'vue-style-loader'
+        })
+    } else {
+        return ['vue-style-loader'].concat(loaders)
+    }
+  }
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
@@ -61,8 +90,11 @@ exports.cssLoaders = function (options) {
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
     scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
+    stylus: generateSassResourceLoader(),
+    styl: generateSassResourceLoader()
+    // 用上面新的方法
+    // stylus: generateLoaders('stylus'),
+    // styl: generateLoaders('stylus'),
   }
 }
 

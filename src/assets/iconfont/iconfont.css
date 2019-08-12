@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "my-icon";
+  src: url('iconfont.eot?t=1565313939151'); /* IE9 */
+  src: url('iconfont.eot?t=1565313939151#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAPUAAsAAAAACDQAAAOFAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqEIINTATYCJAMMCwgABCAFhG0HMhsVB8iehbFjbbMqE+k41f2lBg9Y5/cySbvTZKpvrcX7dgHiBPjn1zkjlBfSpASgHt9B/8Da18saIMDMfGT7xL3TxsIA57Msx7Wnf+rSLA4osD0x2sBhgXQJasPYTQQN8TgEoEmSh6hS7fyO5VCAcQIQfXqKTCyXMaMaagU2AnfFUoWYigvbGmddBKbwz4vXFMoGC5cETG2wDR+bXz0XMvQ/pA0lIZnOCRirQAJ5gALRrtLdQjJK5yHRnjrVXOpGIbCmiv3/Dxf7Sjf8wwMLAcINqHYAyKFkLHimsBAWPBfSq5Y83Gg3YIDDwEWVHhGQ2B7wwwWD/kC4LxBs/bsaujbhxrDrncW0js7JcrOFa8GR4maCEEtI73WxzJuV3TthjhALNmSeEjMzcpbJbnZdilVzLxa5fbudM34mVmiWCU6YEyXnzI4YUBg/O0oMW2PMBAhlGL07TmLNiVau0p0rdXOVHcHMoB6/WrQpjp5jmumZs2Nnplm1jFF3qi2JJJSlVxoes6pvq0WZZsIsCM3UK08+HtD0Dls0iF4h9k+eWiFwOaJD4Uta46Y3blaB8Flpyr5/tK2z2hMddj3PykC4p+kMb6hApbTTytd8Wwd5TnRMm+qs0vt8L3zhkaP9u82Yq+OGFg7+jS/meP19UxILx344UTjFLuz787GX3+tUDDrVs7jPG1/ScXx9C/s7T2/4H9Yu/uG3r1T00QFbixe3U/P3GPuMx+p/NLqs4/F3Nt2L+R3HHOZ7oEvpB74RdABGyvniCfyXb2XEL/4Ov5rV3FLVMl9towC4N+jNDB78r+hWCTYWdJb8UEnHBuXLgEUqV4zFYU6yAvt1mdC+ht9YDxDm8XBvJBKnwDYlMiyykQiJTQZZ0fPAhaEI3NiUhya36qsN4QZJIpQHyGWUBEHAFlj4OAJJwCWyoj+Ciyhv4SaQhKZZ4VsasuqpKw9CxkUeOkXQkyOGgGxuQdQ+UfQ0xk7LOOeLtiPHoGC+AvncDg20p5gx2Bd7Q1wButlEh2rSaahpBAbYREHObfVwXXOWP3+3qgu1OhM9VqAyG2K4EA90EgE9cQiDQNu7CoX3PyGRR8OwGwg90S9kc8jdg4LyKdCBvFMbnQi3cs5gPlHPEC4B6MZG6EA1yYk0mCbAgOpBCsRxtfQYkDTN5Feadeuqbi2v1d9vB6AB86WwhBQKUUwN6qnJsRgAAAA=') format('woff2'),
+  url('iconfont.woff?t=1565313939151') format('woff'),
+  url('iconfont.ttf?t=1565313939151') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1565313939151#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.my-icon {
+  font-family: "my-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.my-icon-6:before {
+  content: "\e701";
+}
+
+.my-icon-rili:before {
+  content: "\e604";
+}
+
