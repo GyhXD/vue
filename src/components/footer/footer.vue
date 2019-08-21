@@ -1,26 +1,51 @@
 <template>
-  <van-tabbar route>
+  <van-tabbar v-model="active" route>
     <van-tabbar-item
+      v-for="(item, index) in footerConfig"
+      :key="index"
       replace
-      to="/"
-      icon="home-o"
+      :to="item.to"
+      :icon="item.icon"
     >
-      首页
-    </van-tabbar-item>
-    <van-tabbar-item
-      replace
-      to="/myRoot"
-      icon="search"
-    >
-      其他
+      {{item.name}}
     </van-tabbar-item>
   </van-tabbar>
 </template>
 <script>
 export default {
+  props: {
+    footerConfig: {
+      tyoe: 'Array',
+      default: function () {
+        return [
+          {
+            to: '/home',
+            icon: 'home-o',
+            name: '首页'
+          },
+          {
+            to: '/myRoot',
+            icon: 'apps-o',
+            name: '工作台'
+          },
+          {
+            to: '/planeList',
+            icon: 'balance-list-o',
+            name: '报表'
+          },
+          {
+            to: '/chooseCity',
+            icon: 'user-o',
+            name: '我的'
+          }
+        ]
+      }
+    }
+  },
   data () {
     return {
-      a: ''
+      a: '',
+      active: 0
     }
   },
   methods: {

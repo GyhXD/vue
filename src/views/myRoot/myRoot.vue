@@ -1,6 +1,6 @@
 <template>
    <div>
-    <header-com></header-com>
+    <!-- <header-com></header-com> -->
     <div>
       <van-row type="flex" justify="center">
         <van-col span="22">
@@ -8,7 +8,7 @@
         </van-col>
       </van-row>
     </div>
-    <footer-com></footer-com>
+    <!-- <footer-com></footer-com> -->
   </div>
 </template>
 <script>

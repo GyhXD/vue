@@ -10,6 +10,8 @@ import 'vant/lib/icon/local.css'
 import './routerGuard.js'// 路由守卫
 import './assets/iconfont/iconfont.css'// iconfont导入
 import store from './store'
+import Rem from '@/utils/rem'
+Vue.use(Rem)
 Vue.use(Vant)
 
 Vue.config.productionTip = false

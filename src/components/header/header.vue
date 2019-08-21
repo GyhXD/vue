@@ -3,13 +3,16 @@
     class="title-header"
     :title="title"
     left-text=""
-    :right-text="config"
+    :right-text="leftText"
     left-arrow
     @click-left="onClickLeft"
     @click-right="onClickRight"
-  />
+  >
+    <van-icon name="search" v-if="!leftText" slot="right" @click="onClickRight()"/>
+  </van-nav-bar>
 </template>
 <script>
+// import { constants } from 'fs'
 export default {
   props: {
     title: {
@@ -18,15 +21,46 @@ export default {
     },
     config: {
       type: String,
+      default: '11'
+    },
+    contentColor: {
+      type: String,
+      default: 'black'
+    },
+    leftText: {
+      type: String,
       default: ''
+    },
+    leftIcon: {
+      type: String,
+      default: ''
+    },
+    chooseData: {
+      // type: Array
     }
+  },
+  mounted () {
+    this.handleFontColor();
+  },
+  beforeRouteEnter (to, from, next) {
+    this.handleFontColor();
+    console.log('aaaa');
+  },
+  watch: {
   },
   methods: {
     onClickLeft () {
-      this.$toast('返回')
+      this.$router.go(-1)
     },
     onClickRight () {
-      // Toast('按钮')
+      this.$toast('返回')
+      console.log('chooseData', this.chooseData);
+    },
+    handleFontColor () {
+      const title = document.querySelector('.van-nav-bar__title')
+      const left = document.querySelector('.van-icon')
+      const right = this.leftText ? document.querySelector('.van-nav-bar__text') : document.querySelector('.van-icon')
+      right.style.color = title.style.color = left.style.color = this.contentColor
     }
   }
 }
@@ -35,6 +69,9 @@ export default {
 .van-nav-bar {
   position: fixed;
   width: 100%;
-  height: $headerHeight;
+  color: white;
+  .van-nav-bar__title, .van-nav-bar__left, .van-nav-bar__right, .van-icon {
+    // color: white;
+  }
 }
 </style>
