@@ -3,11 +3,12 @@ const Utils = {
     return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0
   },
   //  返回星期数
-  getWhatDay: function (year, month, day) {
+  getWhatDay: function (year, month, day, type) {
     const date = new Date(year + '/' + month + '/' + day)
     const index = date.getDay()
-    const dayNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-    return dayNames[index]
+    const dayNames1 = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+    const dayNames2 = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+    return type ? dayNames2[index] : dayNames1[index]
   },
   //  返回星期数
   getMonthPreDay: function (year, month) {
@@ -74,6 +75,32 @@ const Utils = {
       return true
     }
     return false
+  },
+  // 时间格式化  xxxx-xx-xx
+  dateFormat: function(timestamp, type) {
+    const time = timestamp ? new Date(timestamp) : new Date(); // 先将时间戳转为Date对象，然后才能使用Date的方法
+    const year = time.getFullYear();
+    const month = (time.getMonth() + 1) > 10 ? (time.getMonth() + 1) : '0' + (time.getMonth() + 1); // 月份是从0开始的
+    const day = (time.getDate() + 1) > 10 ? (time.getDate() + 1) : '0' + (time.getDate() + 1);
+    const hour = time.getHours();
+    const minute = time.getMinutes();
+    const second = time.getSeconds();
+    let date = ''
+    switch (type) {
+      case 'Y-M-D-H-M':
+        date = year + '-' + month + '-' + day + '-' + hour + '-' + minute;
+        break;
+      case 'H-M-S':
+        date = hour + '-' + minute + '-' + second;
+        break;
+      case 'Y-M-D':
+        date = year + '-' + month + '-' + day;
+        break;
+      default:
+        date = year + '-' + month + '-' + day + '-' + hour + '-' + minute + '-' + second;
+        break;
+    }
+    return date;
   }
 }
 

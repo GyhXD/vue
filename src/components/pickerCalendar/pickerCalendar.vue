@@ -105,7 +105,7 @@ export default {
       this.showFlag = this.isshowing2
     },
     showFlag (value) {
-      !value && this.$emit('setCalendarShow', false)
+      !value && this.$emit('setCalendarShow', this.chooseData);
     }
   },
   computed: {
@@ -160,7 +160,7 @@ export default {
           (!this.isRange && Utils.isEqual(this.currDate, currDate)) ||
           (this.isRange && (this.isStart(currDate) || this.isEnd(currDate)))
         ) {
-          console.log('..', this.currDate, currDate);
+          // console.log('..', this.currDate, currDate);
           return `${this.dayPrefix}-active`;
         } else if (
           (this.startDate && Utils.compareDate(currDate, this.startDate, '1')) ||
@@ -229,7 +229,7 @@ export default {
     // 确认选择
     confirm() {
       if ((this.isRange && this.chooseData.length === 2) || !this.isRange) {
-        this.$emit('setCalendarShow', this.chooseData);
+        // this.$emit('setCalendarShow', this.chooseData);
         this.$refs.sheet.close();
       }
     },

@@ -151,7 +151,7 @@ export default {
 .filter-picker {
   .filter-title {
     padding: 1.2rem 1.5rem;
-    font-size: 3rem;
+    font-size: 1.5rem;
     color: #666666;
     display: flex;
     flex-flow: row nowrap;

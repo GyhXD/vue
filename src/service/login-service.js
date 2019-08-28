@@ -22,5 +22,9 @@ export default {
   getViewProject () { // 获取浏览过得项目
     return axios.get('/halo/api/app/v1/project/preview/prj')
       .then(res => res)
+  },
+  getCountry (deltaNames) { // 获取浏览过得项目
+    return axios.get(`/international/getAirportVoListByDeltaName?deltaNames=${deltaNames}`)
+      .then(res => res)
   }
 }

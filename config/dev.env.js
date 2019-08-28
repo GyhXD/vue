@@ -8,5 +8,5 @@ module.exports = merge(prodEnv, {
   RENDER_MODE: "hash",
   HISTORY_MODE: false,
   STATIC_CONTEXT_PATH: '""',
-  BASE_API: '"http://dist-dev.youpinsanyue.com"'
+  BASE_API: '"http://192.168.12.115:8081"'
 })

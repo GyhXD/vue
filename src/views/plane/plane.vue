@@ -9,21 +9,21 @@
       >
         <van-col span="24">
           <van-tabs v-model="active">
-            <van-tab title="国内">
+            <van-tab title="单程" name=1>
               <van-cell>
                 <template slot="title">
                   <span
                     class="custom-title"
-                    @click="cityShows('选择出发城市')"
+                    @click="cityShows('选择出发城市', 'from')"
                   >
-                    选择城市
+                    {{selectFromCity && selectFromCity.cityName ? selectFromCity.cityName : '1'}}
                   </span>
-                  <van-icon size="24px" name="close" />
+                  <van-icon size="24px" @click="transition()" name="close" />
                   <span
                     class="custom-title"
-                    @click="cityShows('选择目的地城市')"
+                    @click="cityShows('选择目的地城市', 'to')"
                   >
-                    选择城市
+                    {{selectToCity && selectToCity.cityName? selectToCity.cityName : '1'}}
                   </span>
                 </template>
               </van-cell>
@@ -32,8 +32,7 @@
                   <span
                     class="custom-title"
                     @click="myCalendar()"
-                  >选日期</span>
-                  <van-tag type="danger">标签1</van-tag>
+                  >{{fromDate | dateFilter}}</span>
                 </template>
               </van-cell>
               <van-cell>
@@ -41,7 +40,7 @@
                   <van-field
                     readonly
                     clickable
-                    label="舱位"
+                    label="选舱位"
                     :value="value"
                     placeholder="选择舱位"
                     @click="showPicker = true"
@@ -51,11 +50,11 @@
               <van-button
                 type="warning"
                 class="search"
-                @click="jump2()"
+                @click="jump()"
                 round
               >查询</van-button>
             </van-tab>
-            <van-tab title="国际">国际</van-tab>
+            <van-tab title="往返" name=2>往返</van-tab>
           </van-tabs>
         </van-col>
       </van-row>
@@ -91,7 +90,7 @@
     <!-- 日期选择 -->
     <picker-calendar :isshowing2="isshowing2" @setCalendarShow="setCalendarShow"></picker-calendar>
     <!--  -->
-    <choose-city :cityShow="cityShow" @cityShowHandle="cityShowHandle"></choose-city>
+    <choose-city :cityType="cityType" :cityShow="cityShow" @cityShowHandle="cityShowHandle"></choose-city>
   </div>
 </template>
 <script>
@@ -100,7 +99,8 @@ import footerCom from '@/components/footer/footer';
 import myRoot from '@/views/myRoot/myRoot2';
 import pickerCalendar from '@/components/pickerCalendar/pickerCalendar';
 import chooseCity from '@/views/chooseCity/chooseCity2';
-import loginService from '@/service/login-service';
+import dateUtils from '@/utils/date';
+import { $local } from '@/utils/index';
 export default {
   components: {
     footerCom,
@@ -113,19 +113,59 @@ export default {
     return {
       data: {},
       active: 2,
-      value: '',
+      value: '经济舱',
       showPicker: false,
       columns: ['商务舱', '经济舱', '头等舱'],
+      columnsConfig: [
+        {
+          label: '商务舱',
+          value: 'Y'
+        },
+        {
+          label: '经济舱',
+          value: 'C'
+        },
+        {
+          label: '头等舱',
+          value: 'F'
+        }
+      ],
       isshowing2: false,
       isshowing: false,
       cityShow: false,
+      cityType: 'from',
+      selectFromCity: null,
+      selectToCity: null,
+      planeDate: null,
+      fromDate: '',
       chooseCityTitle: ''
     };
   },
+  filters: {
+    dateFilter: function (value) {
+      if (typeof value === 'string') {
+        return value.split('-')[1] + '月' + value.split('-')[2] + '日' + dateUtils.getWhatDay(value.split('-')[0], value.split('-')[1], value.split('-')[2], true);
+      }
+    }
+  },
+  watch: {
+    selectFromCity(v) {
+      $local('selectFromCity', v)
+    },
+    selectToCity(v) {
+      $local('selectToCity', v)
+    }
+  },
   mounted() {
-    // this.getData();
+    this.initData();
   },
   methods: {
+    // 初始化数据  赋值
+    initData() {
+      this.fromDate = dateUtils.dateFormat(null);
+      this.selectToCity = $local('selectToCity');
+      this.selectFromCity = $local('selectFromCity');
+    },
     onConfirm(value) {
       this.value = value;
       this.showPicker = false;
@@ -145,35 +185,58 @@ export default {
     // 日历picker
     setCalendarShow(value) {
       this.isshowing2 = false;
+      this.fromDate = value[0] + '-' + value[1] + '-' + value[2];
+      console.log('get', this.fromDate);
     },
     // 城市选择
-    cityShows(title) {
+    cityShows(title, cityType) {
       this.cityShow = true;
       this.chooseCityTitle = title;
+      this.cityType = cityType;
     },
     // 城市选择
     cityShowHandle(value) {
       this.cityShow = false;
+      this.cityType = value.cityType;
+      value.cityType === 'to' ? this.selectToCity = value : this.selectFromCity = value;
+      console.log('selectCity', value);
     },
-    async getData() {
-      const result = await loginService.getData();
-      console.log(result);
-    },
-    async getData2() {
-      const result = await loginService.getViewProject();
-      console.log('2', result);
+    // 翻转城市
+    transition() {
+      [this.selectFromCity, this.selectToCity] = [this.selectToCity, this.selectFromCity]
     },
     jump() {
       this.$router.push({
-        path: '/chooseCity',
-        name: 'chooseCity'
-      });
-    },
-    jump2() {
-      this.$router.push({
         path: '/planeList',
-        name: 'planeList'
+        name: 'planeList',
+        query: {
+          adtNum: 1,
+          chdNum: 0,
+          searchSections: [
+            {
+              cabinClass: this.columnsConfig.filter(col => col.label === this.value)[0].value,
+              from: this.selectFromCity.cityCode,
+              fromDate: this.fromDate,
+              to: this.selectToCity.cityCode
+            }
+          ],
+          tripType: this.active
+        }
       });
+      const a = {
+        adtNum: 1,
+        chdNum: 0,
+        searchSections: [
+          {
+            cabinClass: this.columnsConfig.filter(col => col.label === this.value)[0].value,
+            from: this.selectFromCity.cityCode,
+            fromDate: this.fromDate,
+            to: this.selectToCity.cityCode
+          }
+        ],
+        tripType: this.active
+      }
+      console.log('aaa', a);
     },
     calendar() {
       this.$router.push({

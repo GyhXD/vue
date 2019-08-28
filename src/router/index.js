@@ -73,7 +73,55 @@ export default new Router({
       name: 'planeDetail',
       component: () => import('@/views/planeDetail/planeDetail'),
       meta: {
-        index: 2
+        index: 3
+      }
+    },
+    {
+      path: '/orderWrite',
+      name: 'orderWrite',
+      component: () => import('@/views/orderWrite/orderWrite'),
+      meta: {
+        index: 4
+      }
+    },
+    {
+      path: '/modifyPassengersInfo',
+      name: 'modifyPassengersInfo',
+      component: () => import('@/views/modifyPassengersInfo/modifyPassengersInfo'),
+      meta: {
+        index: 5
+      }
+    },
+    {
+      path: '/confirmOrder',
+      name: 'confirmOrder',
+      component: () => import('@/views/confirmOrder/confirmOrder'),
+      meta: {
+        index: 5
+      }
+    },
+    {
+      path: '/orderDetail',
+      name: 'orderDetail',
+      component: () => import('@/views/orderDetail/orderDetail'),
+      meta: {
+        index: 5
+      }
+    },
+    {
+      path: '/choosePerson',
+      name: 'choosePerson',
+      component: () => import('@/views/choosePerson/choosePerson'),
+      meta: {
+        index: 6
+      }
+    },
+    {
+      path: '/confirmRefund',
+      name: 'confirmRefund',
+      component: () => import('@/views/confirmRefund/confirmRefund'),
+      meta: {
+        index: 7
       }
     }
   ]

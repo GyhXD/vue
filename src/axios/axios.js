@@ -19,6 +19,8 @@ axiosInstance.interceptors.response.use(
     const resultCode = res.result || res.code || ''
     if (resultCode !== '200' && resultCode !== '0') {
       return Promise.reject(res)
+    } else {
+      return response.data
     }
   },
   error => {

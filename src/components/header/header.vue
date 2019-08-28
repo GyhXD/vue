@@ -53,8 +53,7 @@ export default {
       this.$router.go(-1)
     },
     onClickRight () {
-      this.$toast('返回')
-      console.log('chooseData', this.chooseData);
+      this.$emit('handleRright')
     },
     handleFontColor () {
       const title = document.querySelector('.van-nav-bar__title')
@@ -71,7 +70,7 @@ export default {
   width: 100%;
   color: white;
   .van-nav-bar__title, .van-nav-bar__left, .van-nav-bar__right, .van-icon {
-    // color: white;
+    color: white;
   }
 }
 </style>

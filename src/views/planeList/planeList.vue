@@ -102,6 +102,7 @@
 <script>
 import headerCom from '@/components/header/header';
 import footerCom from './footer';
+import planeService from '@/service/plane-service';
 import pickerCalendar from '@/components/pickerCalendar/pickerCalendar';
 export default {
   components: {
@@ -115,7 +116,8 @@ export default {
       loading: false,
       isshowing2: false,
       finished: false,
-      footerShowFlag: true
+      footerShowFlag: true,
+      flights: []
     };
   },
   watch: {
@@ -128,6 +130,7 @@ export default {
     //   title: '标题',
     //   message: '弹窗内容'
     // })
+    this.getFlightList();
   },
   methods: {
     // 日历picker
@@ -137,6 +140,31 @@ export default {
     // 日历picker
     setCalendarShow(value) {
       this.isshowing2 = false;
+    },
+    // 查询飞机航班列表
+    async getFlightList() {
+      // console.log('lsit', this.$route.query);
+      const a = {
+        cid: "shunduh5",
+        tripType: 1,
+        adtNum: 1,
+        chdNum: 0,
+        infNum: 0,
+        channel: 2,
+        supplierCode: "TMC0001",
+        outUserId: 13488,
+        searchSections: [
+          {
+            cabinClass: "Y",
+            from: "SHA",
+            to: "SIN",
+            fromDate: "2019-10-17"
+          }
+        ]
+      }
+      const result = await planeService.searchFlightList(a);
+      this.flights = result.data.Flights;
+      console.log('lsit', this.flights)
     },
     onLoad() {
       // 异步更新数据
@@ -229,7 +257,7 @@ export default {
             color: #ef5649;
           }
           .price {
-            font-size: 3.5rem;
+            font-size: 1.75rem;
             color: #ef5649;
           }
         }
@@ -240,7 +268,7 @@ export default {
             display: inline-block
           }
           .price {
-            font-size: 3.5rem;
+            font-size: 1.75rem;
           }
         }
       }
@@ -263,7 +291,7 @@ export default {
     .tips {
       padding-block-start: 0.5em;
       padding-block-end: 0.5em;
-      font-size: 2rem;
+      font-size: 1rem;
       text-align: center;
       color: #999999;
     }

@@ -35,11 +35,11 @@ export default {
     };
   },
   mounted() {
-    // this.getData()
+    this.getCountry()
   },
   methods: {
-    async getData() {
-      const result = await loginService.getData();
+    async getCountry() {
+      const result = await loginService.getCountry('亚洲');
       console.log(result);
     },
     async getData2() {

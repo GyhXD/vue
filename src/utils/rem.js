@@ -13,8 +13,8 @@ export default function () {
       // var globalWidth = window.innerWidth;// for judge the screen ??
       var clientWidth = docEl.clientWidth;
       if (!clientWidth) return;
-      console.log('clientWidth-', clientWidth, 12 * (clientWidth / 750) + 'px');
-      docEl.style.fontSize = 10 * (clientWidth / 750) + 'px';
+      // console.log('clientWidth-', clientWidth, 12 * (clientWidth / 750) + 'px');
+      docEl.style.fontSize = 20 * (clientWidth / 750) + 'px';
     };
     if (!doc.addEventListener) return;
     win.addEventListener(resizeEvt, recalc, false);
